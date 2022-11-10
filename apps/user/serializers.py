@@ -7,6 +7,7 @@ class UserImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserImage
         fields = "__all__"
+        read_only_fields = ( 'user',)
 
 
 class UserSerializerList(serializers.ModelSerializer):

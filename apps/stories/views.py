@@ -11,7 +11,7 @@ class StoriesApiViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action in ['update', 'partial_update', 'destroy', 'list']:
-            return (IsOwner(), )
+            return (IsOwner(),permissions.IsAdminUser(), )
         else:
             return (permissions.AllowAny(),)
 
