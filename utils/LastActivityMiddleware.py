@@ -8,12 +8,21 @@ class LastActivity:
         self.get_response = get_response
 
     def __call__(self, request):
-        c= self.get_response(request)
+        return self.get_response(request)
 
 
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        for user in User.objects.all():
+            if (timezone.now() - user.last_action) < timezone.timedelta(minutes=2):
+                pass
+            else:
+                user.is_online=False
+                user.save()
         assert hasattr(request, 'user')
         if request.user.is_authenticated:
             user = User.objects.get(id=request.user.id)
             user.last_action = timezone.now()
+            user.is_online=True
             user.save()
-        return c
+
+                

@@ -8,6 +8,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     last_action=models.DateTimeField(default=timezone.now)
+    is_online=models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.username}"

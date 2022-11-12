@@ -9,8 +9,13 @@ class PostImageSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class PostImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostImage
+        fields = ['image']
+
 class PostSerializer(serializers.ModelSerializer):
-    post_images = PostImageSerializer(many=True, read_only=True)
+    post_images = PostImagesSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post

@@ -19,6 +19,7 @@ class PostApiViewSet(viewsets.ModelViewSet):
         return serializer.save(user=self.request.user)
 
 
+
 class PostImageApiViewSet(viewsets.ModelViewSet):
     queryset = PostImage.objects.all()
     serializer_class = PostImageSerializer

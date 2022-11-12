@@ -2,7 +2,7 @@ from rest_framework import viewsets,permissions
 
 from apps.user.models import User,UserImage
 from apps.stories.permissions import IsOwnerUser,IsOwner
-from apps.user.serializers import UserSerializerList,UserImageSerializer
+from apps.user.serializers import UserSerializerList,UserImageSerializer,UserSerializer
 
 
 class UserApiViewSet(viewsets.ModelViewSet):
@@ -13,7 +13,12 @@ class UserApiViewSet(viewsets.ModelViewSet):
         if self.action in ['update', 'partial_update', 'destroy',]:
             return (IsOwnerUser(),)
         else:
-            return (permissions.AllowAny(),) 
+            return (permissions.AllowAny(),)
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return UserSerializerList
+        return UserSerializer
 
 
 class UserProfilePhotoApiView(viewsets.ModelViewSet):
