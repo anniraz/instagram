@@ -34,6 +34,7 @@ urlpatterns = [
     path('follower/', include('apps.follower.urls')),
     path('favorite/',include('apps.favorites.urls')),
     path('stories/',include('apps.stories.urls')),
+    path('chat/', include('apps.chat.urls')),
 
     # api
     path('api-auth/', include('rest_framework.urls')),

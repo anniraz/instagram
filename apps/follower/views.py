@@ -13,4 +13,3 @@ class FollowerApiViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         return serializer.save(from_user=self.request.user)
 
-

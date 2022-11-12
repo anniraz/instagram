@@ -2,7 +2,7 @@ from rest_framework import viewsets,permissions
 
 from apps.post.serializers import PostSerializer,PostImageSerializer
 from apps.post.models import Post,PostImage
-from apps.stories.permissions import IsOwner
+from apps.stories.permissions import IsOwner,IsPostOwner
 
 
 class PostApiViewSet(viewsets.ModelViewSet):
@@ -10,17 +10,24 @@ class PostApiViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     
     def get_permissions(self):
-        if self.action in ['update', 'partial_update', 'destroy', 'list']:
-            return (IsOwner(),permissions.IsAdminUser(), )
+        if self.action in ['update', 'partial_update', 'destroy']:
+            return (IsOwner(), )
         else:
             return (permissions.IsAuthenticated(),)    
 
     def perform_create(self, serializer):
-        return serializer.save(owner=self.request.user)
+        return serializer.save(user=self.request.user)
 
-class PostApiViewSet(viewsets.ModelViewSet):
+
+class PostImageApiViewSet(viewsets.ModelViewSet):
     queryset = PostImage.objects.all()
     serializer_class = PostImageSerializer
+
+    def get_permissions(self):
+        if self.action in ['update', 'partial_update', 'destroy']:
+            return (IsPostOwner(), )
+        else:
+            return (permissions.IsAuthenticated(),)  
 
 
 

@@ -17,8 +17,8 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ('id',
                   'title',
                   'description',
-                  'owner',
+                  'user',
                   'update_at',
                   'post_images',
                   )
-        read_only_fields = ('id', 'owner', 'create_at')
+        read_only_fields = ('id', 'user', 'create_at')
