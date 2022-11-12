@@ -61,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 
+    'utils.LastActivityMiddleware.LastActivity',
 ]
 
 ROOT_URLCONF = 'instagram_rest.urls'
