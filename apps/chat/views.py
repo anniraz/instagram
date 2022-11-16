@@ -1,13 +1,11 @@
 from django.db.models import Q
 
-from rest_framework.decorators import action
-from rest_framework import generics,permissions,status
-from rest_framework.views import APIView
+from rest_framework import generics,permissions
 from rest_framework.response import Response
 
 from apps.user.models import User                                
 from apps.chat.models import Message                                                 
-from apps.chat.serializers import MessageSerializer,MessageListSerializer
+from apps.chat.serializers import MessageSerializer
 
 class SendMessageApiView(generics.ListCreateAPIView):
     queryset=Message.objects.all()
@@ -20,7 +18,7 @@ class SendMessageApiView(generics.ListCreateAPIView):
         for i in Message.objects.filter(sender=second_user,receiver=owner):
             i.is_read=True
             i.save()
-        messages=Message.objects.filter(Q(sender=owner,receiver_id=User.objects.get(id=pk))|Q(sender=User.objects.get(id=pk),receiver_id=owner) )
+        messages=Message.objects.filter(Q(sender=owner,receiver_id=second_user)|Q(sender=second_user,receiver_id=owner) )
         serializer=MessageSerializer(messages,many=True)
         return Response(serializer.data)
 

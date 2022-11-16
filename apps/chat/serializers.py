@@ -11,8 +11,3 @@ class MessageSerializer(serializers.ModelSerializer):
         read_only_fields = ('sender','receiver','is_read',)
 
 
-class MessageListSerializer(serializers.ModelSerializer):
- 
-    class Meta:
-        model = Message
-        fields = ['id','sender','receiver', 'message', 'timestamp','is_read',]
