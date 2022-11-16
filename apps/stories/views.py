@@ -1,7 +1,7 @@
-from rest_framework import viewsets,permissions
+from rest_framework import viewsets,permissions,generics
 
-from apps.stories.models import Stories
-from apps.stories.serializers import StoriesSerializer
+from apps.stories.models import Stories,Archive
+from apps.stories.serializers import StoriesSerializer,ArchiveSerializer
 from apps.stories.permissions import IsOwner
 
 
@@ -17,3 +17,23 @@ class StoriesApiViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
+
+class ArchiveApiView(generics.ListAPIView):
+    serializer_class = ArchiveSerializer
+    permission_classes=[IsOwner]
+
+    def get_queryset(self):
+        return Archive.objects.filter(user=self.request.user)
+
+class MyArchiveApiView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ArchiveSerializer
+    permission_classes=[IsOwner]
+
+    def get_queryset(self):
+        return Archive.objects.filter(user=self.request.user)
+
+
+
+
+
+
