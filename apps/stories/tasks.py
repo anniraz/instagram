@@ -4,11 +4,6 @@ from django.utils import timezone
 from instagram_rest.celery import app
 from apps.stories.models import Stories,Archive
 
-# video=models.FileField(upload_to='archive/',null=True,blank=True)
-#     photo=models.ImageField(upload_to='archive/',null=True,blank=True)
-#     user=models.ForeignKey(User,on_delete=models.CASCADE)
-#     created_a
-
 @app.task
 def stories():
     today=timezone.now()
