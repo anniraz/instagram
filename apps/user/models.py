@@ -7,8 +7,11 @@ class User(AbstractUser):
     username = models.CharField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    last_action=models.DateTimeField(default=timezone.now)
-    is_online=models.BooleanField(default=False)
+    last_action=models.DateTimeField(default=timezone.now,blank=True,null=True)
+    is_online=models.BooleanField(default=False,blank=True,null=True)
+    is_private=models.BooleanField(default=False)
+    hide_status=models.BooleanField(default=False)
+
 
     def __str__(self):
         return f"{self.username}"

@@ -8,7 +8,6 @@ class Post(models.Model):
     description = models.TextField()
     user = models.ForeignKey(User, related_name='user_posts', on_delete=models.CASCADE)
     create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.title}---{self.user.username}"
@@ -21,7 +20,7 @@ class PostImage(models.Model):
     image = models.ImageField()
 
     def __str__(self):
-        return f"{self.post.title}---{self.post.owner.username}"
+        return f"{self.post.title}---{self.post.user.username}"
 
     class Meta:
         ordering = ("id",)

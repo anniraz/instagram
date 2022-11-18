@@ -25,7 +25,20 @@ class UserSerializerList(serializers.ModelSerializer):
                   "last_name",
                   "last_action",
                   "is_online",
+                  "is_private",
+                  "hide_status",
                   "user_image",
+                  )
+
+class MySerializerList(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id",
+                  "username",
+                  "first_name",
+                  "last_name",
+                  "is_private",
+                  "hide_status",
                   )
 
 
