@@ -53,7 +53,13 @@ class GroupMessagesApiView(generics.ListCreateAPIView):
     serializer_class=ChatMessageSerializer
 
     def get(self, request,pk):
+        user=request.user
         chat=GroupMessages.objects.filter(chat_room=pk)
+        for i in chat:
+            if user == i.is_read:
+                pass
+            i.is_read.add(user)
+            i.save()
         serializer=ChatMessageSerializer(chat,many=True)
         return Response(serializer.data)
 

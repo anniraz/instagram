@@ -42,7 +42,7 @@ class GroupMessages(models.Model):
       member=models.ForeignKey(User,on_delete=models.CASCADE,related_name='message_group_member')
       message = models.CharField(max_length=1200)
       timestamp = models.DateTimeField(auto_now_add=True)
-      is_read = models.BooleanField(default=False)
+      is_read = models.ManyToManyField(User,null=True,blank=True)
 
       def __str__(self) -> str:
             return f'{self.member}:{self.message}'
