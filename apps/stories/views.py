@@ -2,7 +2,7 @@ from rest_framework import viewsets,permissions,generics
 
 from apps.stories.models import Stories,Archive
 from apps.stories.serializers import StoriesSerializer,ArchiveSerializer
-from apps.stories.permissions import IsOwner
+from apps.user.permissions import IsOwner
 
 
 class StoriesApiViewSet(viewsets.ModelViewSet):

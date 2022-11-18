@@ -2,7 +2,7 @@ from rest_framework import viewsets,permissions
 
 from apps.post.serializers import PostSerializer,PostImageSerializer
 from apps.post.models import Post,PostImage
-from apps.stories.permissions import IsOwner,IsPostOwner
+from apps.user.permissions import IsOwner,IsPostOwner
 
 
 class PostApiViewSet(viewsets.ModelViewSet):

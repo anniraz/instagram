@@ -3,7 +3,7 @@ from rest_framework import permissions
 
 from apps.favorites.models import Favorite,FavoriteCategory
 from apps.favorites.serializers import FavoriteSerializer,FavoriteCategorySerializer
-from apps.stories.permissions import IsOwner
+from apps.user.permissions import IsOwner
 
 class FavoriteCategoryApiViewSet(viewsets.ModelViewSet):
     # your own category(favorite) 

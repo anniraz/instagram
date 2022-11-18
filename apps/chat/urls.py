@@ -2,6 +2,8 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from .views import *
+
+
 router = DefaultRouter()
 router.register(prefix='group',viewset=GroupChatSettingsApiView)
 router.register(prefix='members',viewset=GroupChatMembersApiView)

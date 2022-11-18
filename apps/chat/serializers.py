@@ -29,7 +29,7 @@ class ChatMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroupMessages
         fields='__all__'
-        read_only_fields=('member','chat_room',)
+        read_only_fields=('member','chat_room','is_read',)
 
 
 

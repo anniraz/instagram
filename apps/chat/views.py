@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from apps.user.models import User                                
 from apps.chat.models import Message,GroupChatSettings,GroupMembers,GroupMessages                                                 
 from apps.chat.serializers import MessageSerializer,ChatSettingsSerializer,ChatMembersSerializer,ChatMessageSerializer
-from apps.stories.permissions import IsOwner
+from apps.user.permissions import IsOwner,IsChatAdmin
 
 
 class SendMessageApiView(generics.ListCreateAPIView):
@@ -39,7 +39,7 @@ class MessagesApiView(generics.RetrieveUpdateDestroyAPIView):
 class GroupChatSettingsApiView(viewsets.ModelViewSet):
     queryset=GroupChatSettings.objects.all()
     serializer_class=ChatSettingsSerializer
-    # permission_classes=[IsOwner]
+    permission_classes=[IsChatAdmin]
 
     def perform_create(self, serializer):
         return serializer.save(owner=self.request.user)
@@ -47,6 +47,17 @@ class GroupChatSettingsApiView(viewsets.ModelViewSet):
 class GroupChatMembersApiView(viewsets.ModelViewSet):
     queryset=GroupMembers.objects.all()
     serializer_class=ChatMembersSerializer
+
+    def create(self, request, *args, **kwargs):
+        chat_id= request.data['group_room']
+        members=GroupMembers.objects.filter(group_room=int(chat_id))
+        chat=GroupChatSettings.objects.get(id=int(chat_id))
+        if chat.owner==request.user:
+            return super().create(request, *args, **kwargs)
+        for i in members:
+            if  i.is_admin==True and i.member==request.user:
+                return super().create(request, *args, **kwargs)
+        return Response({'error':'you are not admin'})
 
 class GroupMessagesApiView(generics.ListCreateAPIView):
     queryset=GroupMessages.objects.all()
@@ -75,14 +86,6 @@ class GroupMessagesApiView(generics.ListCreateAPIView):
         pk = self.kwargs.get('pk')
         chat_room=GroupChatSettings.objects.get(id=pk)
         return serializer.save(member=self.request.user,chat_room=chat_room)
-
-
-
-
-
-  
-
-
 
 
 

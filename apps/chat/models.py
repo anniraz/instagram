@@ -29,7 +29,7 @@ class GroupChatSettings(models.Model):
             return f'{self.owner}: {self.group_name}'      
 
 class GroupMembers(models.Model):
-
+      
       group_room=models.ForeignKey(GroupChatSettings,on_delete=models.CASCADE)
       member=models.ForeignKey(User,on_delete=models.CASCADE,related_name='group_member')
       is_admin=models.BooleanField(default=False)

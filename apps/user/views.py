@@ -1,7 +1,7 @@
 from rest_framework import viewsets,permissions
 
 from apps.user.models import User,UserImage
-from apps.stories.permissions import IsOwnerUser,IsOwner
+from apps.user.permissions import IsOwnerUser,IsOwner
 from apps.user.serializers import UserSerializerList,UserImageSerializer,UserSerializer
 
 
