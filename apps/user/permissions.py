@@ -16,6 +16,4 @@ class IsChatAdmin(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return bool(obj.owner==request.user)
 
-# class IsChatAdminForAdd(permissions.BasePermission):
-#     def has_object_permission(self, request, view, obj):
-#         return bool(obj.group_room.owner==request.user)
+

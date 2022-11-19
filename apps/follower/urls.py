@@ -1,10 +1,18 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from .views import *
 
-from apps.follower.views import FollowerApiViewSet
 
-router = DefaultRouter()
-router.register(
-    prefix='',
-    viewset=FollowerApiViewSet
-)
-urlpatterns = router.urls
+
+
+
+
+urlpatterns = [
+    path('follow/',FollowApiView.as_view()),
+    path('user/<int:pk>/follows/',FollowsApiView.as_view()),
+    path('user/<int:pk>/followers/',FollowersApiView.as_view()),
+    path('unfollow/<int:pk>/',UnfollowApiView.as_view()),
+    path('delete/follower/<int:pk>/',DeleteFollowerApiView.as_view()),
+    path('subscription/requests/',SubscriptionRequestsApiView.as_view()),
+    path('subscription/requests/<int:pk>/',SubscriptionApiView.as_view())
+]
+

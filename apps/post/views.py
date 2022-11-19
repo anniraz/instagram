@@ -13,7 +13,10 @@ class PostApiViewSet(viewsets.ModelViewSet):
         if self.action in ['update', 'partial_update', 'destroy']:
             return (IsOwner(), )
         else:
-            return (permissions.IsAuthenticated(),)    
+            return (permissions.IsAuthenticated(),)
+
+    def get_queryset(self):
+        return Post.objects.filter(user__is_private=False)
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)

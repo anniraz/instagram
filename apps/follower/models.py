@@ -1,15 +1,11 @@
 from django.db import models
-
-# from django.dispatch import receiver
-# from django.db.models.signals import pre_save
-# from django.core.exceptions import ValidationError
-
 from apps.user.models import User
 
 
 class Follower(models.Model):
     from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, related_name="to_user", on_delete=models.CASCADE)
+    is_confirm=models.BooleanField(default=False)
     create_at = models.DateTimeField(auto_now_add=True)
 
 
