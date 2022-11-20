@@ -38,7 +38,6 @@ class UnfollowApiView(generics.DestroyAPIView):
     def destroy(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         follower=Follower.objects.get(id=pk)
-        print(follower.from_user)
         if follower.from_user==request.user:
             return super().destroy(request, *args, **kwargs)
         else:
