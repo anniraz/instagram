@@ -1,14 +1,14 @@
-from rest_framework import generics
+from rest_framework import generics,status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from apps.follower.models import Follower
-from apps.follower.serializers import FollowerSerializer,ConfirmFollowingSerializer
+from apps.follower.serializers import FollowerSerializer,ConfirmFollowingSerializer,FollowSerializer
 from apps.user.models import User
 
 class FollowApiView(generics.CreateAPIView):
     queryset = Follower.objects.all()
-    serializer_class = FollowerSerializer
+    serializer_class = FollowSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):

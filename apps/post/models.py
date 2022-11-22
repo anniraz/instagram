@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from apps.user.models import User
 
@@ -14,6 +15,15 @@ class Post(models.Model):
 
     class Meta:
         ordering = ('create_at',)
+
+class UserReadTime(models.Model):
+    post = models.ForeignKey(Post, related_name='post_is_read', on_delete=models.CASCADE)
+    user=models.ForeignKey(User, related_name='user_rt', on_delete=models.CASCADE)
+    read_time=models.DateTimeField(timezone.now)
+
+    def __str__(self) -> str:
+        return f'{self.user}:{self.read_time}'
+
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post, related_name='post_images', on_delete=models.CASCADE)

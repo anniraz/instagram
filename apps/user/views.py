@@ -15,6 +15,7 @@ class UserApiViewSet(viewsets.ModelViewSet):
         else:
             return (permissions.AllowAny(),)
 
+
     def get_serializer_class(self):
         if self.action == 'list':
             return UserSerializerList
