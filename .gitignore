@@ -10,6 +10,7 @@ media/
 .idea/
 db.sqlite3/
 # Distribution / packaging
+
 .Python
 build/
 develop-eggs/

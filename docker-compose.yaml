@@ -1,0 +1,67 @@
+version: "3"
+   
+services:
+  db:
+    image: postgres:14
+    restart: always
+    env_file:
+      - ./.env.db
+    ports:
+      - "5433:5432"
+
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:9000" 
+              
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env.dev
+    
+    ports:
+      - "9000:9000"
+
+
+    container_name: drf_instagram_docker_container
+    # links:
+    #   - redis
+    depends_on:
+      - db
+
+  # redis:
+  #   image: redis:latest
+  #   container_name: redis_server
+  #   ports:
+  #     - '6380:6379'
+  #   expose:
+  #     - 6379    
+
+
+  # celery:
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #   container_name: celery-worker
+  #   command: celery -A instagram_rest worker -l INFO
+  #   volumes:
+  #     - .:/code
+  #   depends_on:
+  #     - redis
+  #     - db
+  #   restart: always
+
+  # celery-beat:
+  #   build: .
+  #   command: celery -A instagram_rest beat -l INFO
+  #   depends_on:
+  #     - redis
+  #     - db
+  #     - celery
+  #   restart: always
+  
+volumes:
+  postgres_data:
+  media_volume:
+  static_volume:
