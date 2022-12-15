@@ -1,4 +1,3 @@
-import datetime
 from django.utils import timezone
 
 from instagram_rest.celery import app
@@ -17,4 +16,5 @@ def stories():
             )
             
             i.delete()
+    
 
